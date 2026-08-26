@@ -2,7 +2,7 @@
 # fio benchmark suite for verifying a cloud provider's NVMe IOPS billing claims.
 #
 # Usage:
-#   ./02_run_benchmark.sh <TARGET> [SIZE] [OUTDIR]
+#   ./run_benchmark.sh <TARGET> [SIZE] [OUTDIR]
 #
 #   TARGET  path to a test file, or a raw block device (/dev/nvme1n1).
 #           A block device is overwritten in full. Use an empty, non-system disk.

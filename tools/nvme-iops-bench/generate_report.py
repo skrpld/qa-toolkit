@@ -3,7 +3,7 @@
 Build a markdown report of IOPS/throughput/latency from fio json files.
 
 Usage:
-    python3 03_generate_report.py <OUTDIR> [report.md]
+    python3 generate_report.py <OUTDIR> [report.md]
 """
 import json
 import sys

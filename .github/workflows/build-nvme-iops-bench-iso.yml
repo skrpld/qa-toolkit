@@ -1,4 +1,4 @@
-name: Build offline IOPS-bench ISO
+name: Build offline nvme-iops-bench ISO
 
 on:
   workflow_dispatch:
@@ -15,6 +15,7 @@ jobs:
       FIO_VERSION: ${{ inputs.fio_version || 'fio-3.36' }}
       MUSL_INC: /usr/include/x86_64-linux-musl
       MUSL_LIB: /usr/lib/x86_64-linux-musl
+      TOOL_DIR: tools/nvme-iops-bench
 
     steps:
       - name: Checkout repo
@@ -90,9 +91,9 @@ jobs:
         run: |
           STAGE="$RUNNER_TEMP/iso"
           mkdir -p "$STAGE/bin"
-          cp 02_run_benchmark.sh 03_generate_report.py README.md "$STAGE/"
+          cp "$TOOL_DIR/run_benchmark.sh" "$TOOL_DIR/generate_report.py" "$TOOL_DIR/README.md" "$STAGE/"
           cp /tmp/fio/fio "$STAGE/bin/fio"
-          chmod 755 "$STAGE/bin/fio" "$STAGE/02_run_benchmark.sh" "$STAGE/03_generate_report.py"
+          chmod 755 "$STAGE/bin/fio" "$STAGE/run_benchmark.sh" "$STAGE/generate_report.py"
           find "$STAGE" -type f -printf '%M %p\n'
 
       - name: Build ISO
