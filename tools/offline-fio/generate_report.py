@@ -90,7 +90,7 @@ def main():
         sys.exit(1)
 
     lines = [
-        "# NVMe IOPS benchmark report",
+        "# Disk IOPS benchmark report",
         "",
         f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
         f"Source: `{outdir}`",

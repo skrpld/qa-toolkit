@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# fio benchmark suite for verifying a cloud provider's NVMe IOPS billing claims.
+# fio benchmark suite for verifying a cloud provider's disk IOPS billing claims.
 #
 # Usage:
 #   ./run_benchmark.sh <TARGET> [SIZE] [OUTDIR]
@@ -7,7 +7,7 @@
 #   TARGET  path to a test file, or a raw block device (/dev/nvme1n1).
 #           A block device is overwritten in full. Use an empty, non-system disk.
 #   SIZE    test file size when TARGET is a file (default 4G)
-#   OUTDIR  where the json results go (default /var/tmp/nvme-iops-bench/<timestamp>)
+#   OUTDIR  where the json results go (default /var/tmp/offline-fio/<timestamp>)
 #
 # Environment:
 #   RUNTIME=30    seconds per sub-test
@@ -22,7 +22,7 @@ elif command -v fio &>/dev/null; then
   FIO="fio"
 else
   echo "fio not found in $SCRIPT_DIR/bin/fio or in PATH." >&2
-  echo "Rebuild the ISO via the 'Build offline IOPS-bench ISO' workflow." >&2
+  echo "Rebuild the ISO via the 'Build offline fio ISO' workflow." >&2
   exit 1
 fi
 echo "fio: $FIO ($("$FIO" --version))"
@@ -51,7 +51,7 @@ fi
 TARGET="${1:?TARGET required: a file path or a block device}"
 SIZE="${2:-4G}"
 TS="$(date +%Y%m%d_%H%M%S)"
-OUTDIR="${3:-/var/tmp/nvme-iops-bench/$TS}"
+OUTDIR="${3:-/var/tmp/offline-fio/$TS}"
 mkdir -p "$OUTDIR"
 
 IS_DEVICE=0
@@ -94,4 +94,4 @@ run_job "seqread_128k" --rw=read --bs=128k --iodepth=32 --numjobs=1
 run_job "seqwrite_128k" --rw=write --bs=128k --iodepth=32 --numjobs=1
 
 echo "Done. JSON results: $OUTDIR"
-echo "$OUTDIR" > /tmp/nvme_bench_last_outdir
+echo "$OUTDIR" > /tmp/offline_fio_last_outdir

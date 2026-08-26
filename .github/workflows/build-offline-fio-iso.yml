@@ -1,4 +1,4 @@
-name: Build offline nvme-iops-bench ISO
+name: Build offline fio ISO
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ jobs:
       FIO_VERSION: ${{ inputs.fio_version || 'fio-3.36' }}
       MUSL_INC: /usr/include/x86_64-linux-musl
       MUSL_LIB: /usr/lib/x86_64-linux-musl
-      TOOL_DIR: tools/nvme-iops-bench
+      TOOL_DIR: tools/offline-fio
 
     steps:
       - name: Checkout repo
@@ -99,13 +99,13 @@ jobs:
       - name: Build ISO
         run: |
           # -R (full Rock Ridge) preserves permissions, including the executable bit.
-          genisoimage -V "NVMEBENCH" -J -R \
-            -o "$RUNNER_TEMP/nvme-iops-bench.iso" "$RUNNER_TEMP/iso"
-          ls -lh "$RUNNER_TEMP/nvme-iops-bench.iso"
+          genisoimage -V "OFFLINEFIO" -J -R \
+            -o "$RUNNER_TEMP/offline-fio.iso" "$RUNNER_TEMP/iso"
+          ls -lh "$RUNNER_TEMP/offline-fio.iso"
 
       - name: Upload ISO as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: nvme-iops-bench-iso
-          path: ${{ runner.temp }}/nvme-iops-bench.iso
+          name: offline-fio-iso
+          path: ${{ runner.temp }}/offline-fio.iso
           if-no-files-found: error
