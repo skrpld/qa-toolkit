@@ -8,7 +8,6 @@
 | Инструмент | Описание |
 | --- | --- |
 | [`nvme-iops-bench`](tools/nvme-iops-bench/README.md) | Проверка того, что провайдер реально отдаёт заявленные в тарифе IOPS. Собирается офлайн-ISO с fio для VM без интернета. |
-| [`fill-disk`](tools/fill-disk/README.md) | Создание N файлов заданного размера в указанной директории — для заполнения диска тестовыми данными. |
 
 ## Структура репозитория
 
@@ -16,8 +15,7 @@
 qa-toolkit/
 ├── .github/workflows/    # CI-workflow'ы (у GitHub Actions видны только отсюда)
 ├── tools/
-│   ├── nvme-iops-bench/
-│   └── fill-disk/
+│   └── nvme-iops-bench/
 └── README.md             # этот файл
 ```
 
